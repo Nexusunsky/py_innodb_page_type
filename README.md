@@ -6,6 +6,6 @@ python tool for innodb page info
 
 用法 ：
 
-D:\> py py_innodb_page_info.py server_cost.ibd -v
+python3 py_innodb_page_info.py server_cost.ibd -v
 
 - v 表示详细信息

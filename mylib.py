@@ -2,6 +2,7 @@
 import os
 
 from include import *
+import binascii
 
 TABLESPACE_NAME = 'D:\\mysql_data\\test\\t.ibd'
 VARIABLE_FIELD_COUNT = 1
@@ -49,28 +50,28 @@ class myargv(object):
 
 def mach_read_from_n(page, start_offset, length):
     ret = page[start_offset:start_offset + length]
-    return ret.encode('hex')
+    return binascii.hexlify(ret)
 
 
 def get_innodb_page_type(myargv):
     f = open(myargv.tablespace, 'rb')
-    fsize = os.path.getsize(f.name) / INNODB_PAGE_SIZE
+    fsize = int(os.path.getsize(f.name) / INNODB_PAGE_SIZE)
     ret = {}
     for i in range(fsize):
         page = f.read(INNODB_PAGE_SIZE)
         page_offset = mach_read_from_n(page, FIL_PAGE_OFFSET, 4)
         page_type = mach_read_from_n(page, FIL_PAGE_TYPE, 2)
-        if myargv.parms.has_key('-v'):
-            if page_type == '45bf':
+        if '-v' in myargv.parms:
+            if page_type == b'45bf':
                 page_level = mach_read_from_n(page, FIL_PAGE_DATA + PAGE_LEVEL, 2)
-                print("page offset %s, page type <%s>, page level <%s>" % (
-                    page_offset, innodb_page_type[page_type], page_level))
+                print(
+                    f"page offset {page_offset}, page type <{innodb_page_type[page_type]}>, page level <{page_level}>")
             else:
-                print("page offset %s, page type <%s>" % (page_offset, innodb_page_type[page_type]))
-        if not ret.has_key(page_type):
+                print(f"page offset {page_offset}, page type <{innodb_page_type[page_type]}>")
+        if page_type not in ret:
             ret[page_type] = 1
         else:
             ret[page_type] = ret[page_type] + 1
-    print("Total number of page: %d:" % fsize)
+    print(f"Total number of page: {fsize}:")
     for type in ret:
-        print("%s: %s" % (innodb_page_type[type], ret[type]))
+        print(f"{innodb_page_type[type]}: {ret[type]}")

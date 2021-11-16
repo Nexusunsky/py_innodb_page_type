@@ -20,29 +20,29 @@ TRX_UNDO_PAGE_HDR = FSEG_PAGE_DATA
 PAGE_LEVEL = 26  # level of the node in an index tree; the leaf level is the level 0 */
 
 innodb_page_type = {
-    '0000': u'Freshly Allocated Page',
-    '0002': u'Undo Log Page',
-    '0003': u'File Segment inode',
-    '0004': u'Insert Buffer Free List',
-    '0005': u'Insert Buffer Bitmap',
-    '0006': u'System Page',
-    '0007': u'Transaction system Page',
-    '0008': u'File Space Header',
-    '0009': u'extend description page',
-    '000a': u'Uncompressed BLOB Page',
-    '000b': u'1st compressed BLOB Page',
-    '000c': u'Subsequent compressed BLOB Page',
-    '45bf': u'B-tree Node'
+    b'0000': u'Freshly Allocated Page',
+    b'0002': u'Undo Log Page',
+    b'0003': u'File Segment inode',
+    b'0004': u'Insert Buffer Free List',
+    b'0005': u'Insert Buffer Bitmap',
+    b'0006': u'System Page',
+    b'0007': u'Transaction system Page',
+    b'0008': u'File Space Header',
+    b'0009': u'extend description page',
+    b'000a': u'Uncompressed BLOB Page',
+    b'000b': u'1st compressed BLOB Page',
+    b'000c': u'Subsequent compressed BLOB Page',
+    b'45bf': u'B-tree Node'
 }
 
 innodb_page_direction = {
-    '0000': 'Unknown(0x0000)',
-    '0001': 'Page Left',
-    '0002': 'Page Right',
-    '0003': 'Page Same Rec',
-    '0004': 'Page Same Page',
-    '0005': 'Page No Direction',
-    'ffff': 'Unkown2(0xffff)'
+    b'0000': 'Unknown(0x0000)',
+    b'0001': 'Page Left',
+    b'0002': 'Page Right',
+    b'0003': 'Page Same Rec',
+    b'0004': 'Page Same Page',
+    b'0005': 'Page No Direction',
+    b'ffff': 'Unkown2(0xffff)'
 }
 
 INNODB_PAGE_SIZE = 1024 * 16  # InnoDB Page 16K
